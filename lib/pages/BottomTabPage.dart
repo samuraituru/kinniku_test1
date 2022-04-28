@@ -12,7 +12,7 @@ class BottomTabPage extends StatefulWidget {
   }
 }
 
-  var bartitle = <String>['保存1','比較','グラフ','一覧','マイページ'];
+  var bartitle = <String>['保存1','比較1','グラフ','一覧','マイページ'];
 
 
 class _BottomTabPageState extends State<BottomTabPage> {
