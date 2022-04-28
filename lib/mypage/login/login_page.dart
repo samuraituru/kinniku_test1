@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kinnikunikki_test/pages/BottomTabPage.dart';
+import 'package:kinnikunikki_test/tabpage/BottomTabPage.dart';
 
-class ComparisonPage extends StatelessWidget {
+class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -9,12 +9,12 @@ class ComparisonPage extends StatelessWidget {
       appBar: AppBar(
         title: Center(
           child: Text(
-              bartitle[1]
+              bartitle[4]
           ),
         ),
       ),
       body: Center(
-        child: Text('1'),
+        child: Text('4'),
       ),
     );
   }

@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:kinnikunikki_test/pages/BottomTabPage.dart';
+import 'package:kinnikunikki_test/tabpage/BottomTabPage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
@@ -15,7 +15,6 @@ class StoragePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
           title: Center(
@@ -78,7 +77,8 @@ class StoragePage extends StatelessWidget {
             if(_file != null) Image.file(_file!, fit: BoxFit.cover,),
             OutlinedButton(
                 onPressed: () async {
-                  final XFile? _image = await _picker.pickImage(source: ImageSource.gallery);
+                  final XFile? _image = await _picker.pickImage(
+                      source: ImageSource.gallery);
                   _file = File(_image!.path);
                   setState(() {});
                 },

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:kinnikunikki_test/pages/graph_page.dart';
-import 'package:kinnikunikki_test/pages/list_page.dart';
-import 'package:kinnikunikki_test/pages/my_page.dart';
-import 'package:kinnikunikki_test/pages/storage_page.dart';
-import 'package:kinnikunikki_test/pages/comparison_page.dart';
+import 'package:kinnikunikki_test/graph/graph_page.dart';
+import 'package:kinnikunikki_test/list/list_page.dart';
+import 'package:kinnikunikki_test/mypage/my_page.dart';
+import 'package:kinnikunikki_test/comparison/comparison_page.dart';
+
+import '../storage/storage__img_page.dart';
 
 class BottomTabPage extends StatefulWidget {
   @override
@@ -12,7 +13,7 @@ class BottomTabPage extends StatefulWidget {
   }
 }
 
-  var bartitle = <String>['保存1','比較','グラフ','一覧','マイページ'];
+  var bartitle = <String>['保存1','比較1','グラフ','一覧','マイページ'];
 
 
 class _BottomTabPageState extends State<BottomTabPage> {

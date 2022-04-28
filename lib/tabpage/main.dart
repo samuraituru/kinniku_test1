@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kinnikunikki_test/pages/BottomTabPage.dart';
+import 'package:kinnikunikki_test/tabpage/BottomTabPage.dart';
 
 void main() {
   runApp(const MyApp());
