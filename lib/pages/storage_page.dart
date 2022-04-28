@@ -2,6 +2,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:kinnikunikki_test/pages/BottomTabPage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
+
+DateTime now = DateTime.now();
+DateFormat outputFormat = DateFormat('yyyy-MM-dd');
+String date = outputFormat.format(now);
 
 class StoragePage extends StatelessWidget {
 
@@ -23,6 +28,35 @@ class StoragePage extends StatelessWidget {
         child: Column(
           children: <Widget>[
               //ここにカレンダーが入る
+            Padding(
+              padding: const EdgeInsets.all(14.0),
+                child: SizedBox(
+                  width: 240,
+                  height: 50,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.white,
+                    ),
+                    onPressed: () async {
+                      final selectedDate = await showDatePicker(
+                          context: context,
+                          // DatePicker表示時に出す日付
+                          initialDate: DateTime.now(),
+                          // 選択できる一番古い日付
+                          firstDate: DateTime.utc(2000),
+                          // 選択できる一番新しい日付
+                          lastDate: DateTime.now());
+                    },
+                    child: Text(
+                      '$date',
+                      style: TextStyle(
+                        fontSize: 22,
+                        color: Colors.black,
+                      ),
+                    ),
+            ),
+                ),
+            ),
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: TextField(
