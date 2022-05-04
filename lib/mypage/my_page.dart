@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kinnikunikki_test/mypage/login/login_page.dart';
 import 'package:kinnikunikki_test/tabpage/BottomTabPage.dart';
 
 class MyPage extends StatelessWidget {
@@ -76,7 +77,12 @@ class MyPage extends StatelessWidget {
                 ),
                 primary: Colors.white,
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginPage()),
+                );
+              },
               child: Text(
                 'ログイン',
                 style: TextStyle(
