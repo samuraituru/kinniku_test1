@@ -1,15 +1,25 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:kinnikunikki_test/mypage/login/login_page.dart';
-import 'package:kinnikunikki_test/tabpage/BottomTabPage.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:kinnikunikki_test/home/home_page.dart';
 
 class MyPage extends StatelessWidget {
+
+  Future getImage() async {
+    File? _file;
+    final ImagePicker _picker = ImagePicker();
+    final XFile? _image = await _picker.pickImage(
+        source: ImageSource.gallery);
+    _file = File(_image!.path);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(
-          child: Text(bartitle[4]),
-        ),
+        centerTitle: true,
+        title: Text('マイページ'),
       ),
       body: Center(
         child: Column(
@@ -52,16 +62,30 @@ class MyPage extends StatelessWidget {
               padding: EdgeInsets.all(10.0),
               child: Text('理想のボディ'),
             ),
-            Container(
-              width: 150,
-              height: 200,
-              child: Material(
-                color: Colors.red,
-                child: InkWell(
-                  onTap: () async {
-                  },
+            Stack(
+              children: [
+                Container(
+                  width: 150,
+                  height: 200,
+                  alignment: Alignment.center,
+                  child: Text('写真を選ぶ'),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black),
+                  ),
                 ),
-              ),
+                SizedBox(
+                  width: 150,
+                  height: 200,
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: () async {
+                        getImage();
+                      },
+                    ),
+                  ),
+                ),
+              ],
             ),
             Container(
               width: 350,
@@ -80,7 +104,7 @@ class MyPage extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => LoginPage()),
+                  MaterialPageRoute(builder: (context) => HomePage()),
                 );
               },
               child: Text(

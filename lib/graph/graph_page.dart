@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:kinnikunikki_test/tabpage/BottomTabPage.dart';
+import 'package:kinnikunikki_test/tabpage/root_page.dart';
 
 class GraphPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        title: Center(
-          child: Text(
-              bartitle[2]
-          ),
+        centerTitle: true,
+        title: Text(
+            'グラフ'
         ),
       ),
       body: Center(

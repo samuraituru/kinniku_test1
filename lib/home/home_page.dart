@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:kinnikunikki_test/tabpage/BottomTabPage.dart';
+import 'package:kinnikunikki_test/home/login/login_page.dart';
+import 'package:kinnikunikki_test/home/register/register.dart';
 
-class LoginPage extends StatelessWidget {
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text('理想のボディを目指そうぜ'),
       ),
       body: Center(
         child: Column(
           children: [
-            SizedBox(
-              width: 150,
-              height: 150,
-            ),
             SizedBox(
               width: 150,
               height: 150,
@@ -41,7 +39,7 @@ class LoginPage extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => LoginPage()),
+                    MaterialPageRoute(builder: (context) => RegisterPage()),
                   );
                 },
                 child: Text(
