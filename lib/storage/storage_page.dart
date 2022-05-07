@@ -1,115 +1,124 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
-
-DateTime now = DateTime.now();
-DateFormat outputFormat = DateFormat('yyyy-MM-dd');
-String date = outputFormat.format(now);
+import 'package:kinnikunikki_test/storage/storage_model.dart';
+import 'package:provider/provider.dart';
 
 class StoragePage extends StatelessWidget {
-  final ImagePicker _picker = ImagePicker();
-  File? _file;
+  DateTime? selectedDate;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Center(
-          child: Text('保存'),
+    return ChangeNotifierProvider<StorageModel>(
+      create: (_) => StorageModel(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Center(
+            child: Text('保存'),
+          ),
         ),
-      ),
-      body: Container(
-        child: Column(
-          children: <Widget>[
-            //ここにカレンダーが入る
-            Padding(
-              padding: const EdgeInsets.all(14.0),
-              child: SizedBox(
-                width: 240,
-                height: 50,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.white,
-                  ),
-                  onPressed: () async {
-                    final selectedDate = await showDatePicker(
-                        context: context,
-                        // DatePicker表示時に出す日付
-                        initialDate: DateTime.now(),
-                        // 選択できる一番古い日付
-                        firstDate: DateTime.utc(2000),
-                        // 選択できる一番新しい日付
-                        lastDate: DateTime.now());
-                  },
-                  child: Text(
-                    '$date',
-                    style: TextStyle(
-                      fontSize: 22,
-                      color: Colors.black,
+        body: Consumer<StorageModel>(builder: (context, model, child) {
+          final File? file = model.imagefile;
+
+          return Container(
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(14.0),
+                  child: SizedBox(
+                    width: 240,
+                    height: 50,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.white,
+                      ),
+                      onPressed: () => model.pickDate(context),
+                      child: Text(
+                        '${model.selectedDate}',
+                        style: TextStyle(
+                          fontSize: 22,
+                          color: Colors.black,
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: TextField(
-                decoration: InputDecoration(
-                  labelText: '体重(Kg)',
-                  hintText: '体重(Kg)',
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: TextField(
-                decoration: InputDecoration(
-                  labelText: '体脂肪率(％)',
-                  hintText: '体脂肪率(％)',
-                ),
-              ),
-            ),
-            if (_file != null)
-              Image.file(
-                _file!,
-                fit: BoxFit.cover,
-              ),
-            Stack(
-              children: [
-                Container(
-                  width: 150,
-                  height: 200,
-                  alignment: Alignment.center,
-                  child: Text('写真を選ぶ'),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black),
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: TextField(
+                    onChanged: (text) {
+                      model.weight = text;
+                    },
+                    decoration: InputDecoration(
+                      labelText: '体重(Kg)',
+                      hintText: '体重(Kg)',
+                    ),
                   ),
                 ),
-                SizedBox(
-                  width: 150,
-                  height: 200,
-                  child: Material(
-                    color: Colors.transparent,
-                    child: InkWell(
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: TextField(
+                    onChanged: (text) {
+                      model.fat = text;
+                    },
+                    decoration: InputDecoration(
+                      labelText: '体脂肪率(％)',
+                      hintText: '体脂肪率(％)',
+                    ),
+                  ),
+                ),
+/*                if (file != null)
+                  Image.file(
+                    file,
+                    fit: BoxFit.cover,
+                  ),*/
+                Stack(
+                  children: [
+                    Container(
+                      width: 150,
+                      height: 200,
+                      alignment: Alignment.center,
+                      child: Text('写真を選ぶ'),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black),
+                      ),
+                    ),
+                    GestureDetector(
+                      child: SizedBox(
+                        width: 150,
+                        height: 200,
+                        child: model.imagefile != null
+                            ? Image.file(model.imagefile!)
+                            : Container(
+                                color: Colors.white,
+                              ),
+                      ),
                       onTap: () async {
-                        final XFile? _image = await _picker.pickImage(
-                            source: ImageSource.gallery);
-                        _file = File(_image!.path);
+                        await model.pickImage();
                       },
                     ),
-                  ),
+                  ],
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    try {
+                      await model.addStorage();
+                      Navigator.of(context).pop(true);
+                    } catch (e) {
+                      print(e);
+                      final snackBar = SnackBar(
+                        backgroundColor: Colors.red,
+                        content: Text(e.toString()),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    }
+                  },
+                  child: Text('保存'),
                 ),
               ],
             ),
-            ElevatedButton(
-              onPressed: () {},
-              child: Text('保存'),
-            ),
-          ],
-        ),
+          );
+        }),
       ),
     );
   }
-
 }
